@@ -1,5 +1,10 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
+ENV LISTEN_PORT 10080
+
+EXPOSE 10080
+
+
 COPY ./cb_idcheck /usr/src/package
 COPY ./app /app
 
