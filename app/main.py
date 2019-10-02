@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 app=Flask(__name__)
 
 from cb_idcheck import webhook
