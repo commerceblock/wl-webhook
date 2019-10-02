@@ -1,17 +1,19 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
-ENV LISTEN_PORT 10080
+ENV LISTEN_PORT 80
 
-EXPOSE 10080
+EXPOSE 80
 
-
-COPY ./cb_idcheck /usr/src/package
+WORKDIR /
 COPY ./app /app
 
+WORKDIR /
+RUN git clone https://github.com/commerceblock/cb_idcheck.git
+
+WORKDIR /cb_idcheck
 RUN set -x \
     && mkdir -p /kycfile/whitelist \
     && mkdir -p /kycfile/consider \
-    && cd /usr/src/package \
     && python3 setup.py build \
     && python3 setup.py install 
 

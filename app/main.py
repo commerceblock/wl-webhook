@@ -1,4 +1,4 @@
-import os
+Would import os
 from flask import Flask, request
 app=Flask(__name__)
 
@@ -30,7 +30,7 @@ wh=webhook.webhook(token=conf["token"],
                    whitelisted_dir=conf["whitelisted_dir"],
                    consider_dir=conf["consider_dir"])
 
-wh.run()
+wh.init()
 
 @app.route("/")
 def hello():
