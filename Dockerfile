@@ -4,6 +4,8 @@ COPY ./cb_idcheck /usr/src/package
 COPY ./app /app
 
 RUN set -x \
+    && mkdir -p /kycfile/whitelist \
+    && mkdir -p /kycfile/consider \
     && cd /usr/src/package \
     && python3 setup.py build \
     && python3 setup.py install 
