@@ -1,4 +1,5 @@
 import os
+import pprint
 import logging
 from flask import Flask, request
 app=Flask(__name__)
@@ -53,6 +54,8 @@ def process_post():
     req=request
     logging.info('main:process_post() - request headers: %s', str(req.headers))
     logging.info('main:process_post() - request data: %s', str(req.data))
+    pprint("main:process_post() - request headers: " +  str(req.headers))
+    pprint("main:process_post() - request data: " +  str(req.data))
     return wh.process_post(req)
 
 if __name__ == "__main__":
