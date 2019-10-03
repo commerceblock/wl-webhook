@@ -13,7 +13,7 @@ conf["token"]=os.environ.get('IDCHECK_WEBHOOK_TOKEN', None)
 p="/run/secrets/onfido_webhook_token"
 if os.path.exists(p) and conf["token"] == None:
     with open(p) as f:
-        conf["token"]=f.readline()
+        conf["token"]=f.readline().rstrip()
 else:
     conf["token"]='tok1'
 
@@ -22,7 +22,7 @@ conf["idcheck_token"]=os.environ.get('IDCHECK_API_TOKEN', None)
 p="/run/secrets/onfido_token"
 if os.path.exists(p) and conf["idcheck_token"] == None:
     with open(p) as f:
-        conf["idcheck_token"]=f.readline()
+        conf["idcheck_token"]=f.readline().rstrip()
 else:
     conf["idcheck_token"]='tok2'
 
