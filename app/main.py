@@ -54,8 +54,8 @@ def process_post():
     req=request
     logging.info('main:process_post() - request headers: %s', str(req.headers))
     logging.info('main:process_post() - request data: %s', str(req.data))
-    pprint("main:process_post() - request headers: " +  str(req.headers))
-    pprint("main:process_post() - request data: " +  str(req.data))
+    pprint.pprint("main:process_post() - request headers: " +  str(req.headers))
+    pprint.pprint("main:process_post() - request data: " +  str(req.data))
     return wh.process_post(req)
 
 if __name__ == "__main__":
