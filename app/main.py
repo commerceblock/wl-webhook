@@ -5,15 +5,20 @@ app=Flask(__name__)
 from cb_idcheck import webhook
 
 conf={}
-if os.path.exists("/run/secrets/onfido_webhook_token"):
-    conf["token"]=os.system("cat /run/secrets/onfido_webhook_token")
+p="/run/secrets/onfido_webhook_token"
+if os.path.exists(p):
+    with open(p) as f:
+        conf["token"]=f.readline()
 else:
     conf["token"]='tok1'
 
-if os.path.exists("/run/secrets/onfido_token"):
-    conf["idcheck_token"]=os.system("cat /run/secrets/onfido_token")
+p="/run/secrets/onfido_token"
+if os.path.exists(p):
+    with open(p) as f:
+        conf["idcheck_token"]=f.readline()
 else:
     conf["idcheck_token"]='tok2'
+
 
 conf["port"]=os.environ.get('IDCHECK_WEBHOOK_PORT', None)
 conf["log"]=os.environ.get('IDCHECK_LOG', '/usr/local/var/log/cb_idcheck.log')
