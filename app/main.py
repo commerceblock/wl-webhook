@@ -49,9 +49,10 @@ def hello():
 
 @app.route("/", methods=['POST'])
 def process_post():
-    logging.info('main:process_post() - request headers: %s', str(request.headers))
-    logging.info('main:process_post() - request data: %s', str(request.data))
-    return wh.process_post(request)
+    req=request
+    logging.info('main:process_post() - request headers: %s', str(req.headers))
+    logging.info('main:process_post() - request data: %s', str(req.data))
+    return wh.process_post(req)
 
 if __name__ == "__main__":
     app.run(host=conf["host"], debug=True, port=conf["port"])
