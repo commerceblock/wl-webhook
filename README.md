@@ -1,2 +1,3 @@
 # wl-webhook
-Whitelisting webhook receiver
+Whitelisting webhook receiver in a containerised UWSGI-nGinx-Flask framework.
+

@@ -5,6 +5,8 @@ services:
       - ./app:/app
       - ~/kycfile/whitelist:/kycfile/whitelist
       - ~/kycfile/consider:/kycfile/consider
+      - ~/tokens/onfido_token:/run/secrets/onfido_token
+      - ~/tokens/onfido_webhook_token:/run/secrets/onfido_webhook_token
     ports:
       - "80:80"
     environment:
