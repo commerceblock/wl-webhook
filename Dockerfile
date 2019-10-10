@@ -13,7 +13,6 @@ RUN git clone https://github.com/commerceblock/cb_idcheck.git
 
 WORKDIR /cb_idcheck
 RUN set -x \
-    && git checkout email_confirmation \
     && mkdir -p /kycfile/whitelist \
     && mkdir -p /kycfile/consider \
     && python3 setup.py build \
