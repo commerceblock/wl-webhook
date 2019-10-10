@@ -7,6 +7,8 @@ services:
       - ~/kycfile/consider:/kycfile/consider
       - ~/tokens/onfido_token:/run/secrets/onfido_token
       - ~/tokens/onfido_webhook_token:/run/secrets/onfido_webhook_token
+      - ~/tokens/smtp_username:/run/secrets/smtp_username
+      - ~/tokens/smtp_password:/run/secrets/smtp_password
     ports:
       - "80:80"
     environment:
@@ -20,6 +22,12 @@ services:
       - ID_HOST=0.0.0.0
       - WHITELISTED_DIR=/kycfile/whitelist
       - CONSIDER_DIR=/kycfile/consider
+      - SMTP_SERVER=http://email-smtp.eu-west-1.amazonaws.com/
+      - SMTP_PORT=465
+      - SMTP_EMAIL_FROM=smtp-webhook@mainnet.gtsa.io
+      - SMTP_NAME_FROM=ACompanyName
+      - SMTP_USERNAME_FILE=/run/secrets/smtp_username
+      - SMTP_PASSWORD_FILE=/run/secrets/smtp_password
     command: flask run --host=0.0.0.0 --port=80
     # Infinite loop, to keep it alive, for debugging
     # command: bash -c "while true; do echo 'sleeping...' && sleep 10; done"

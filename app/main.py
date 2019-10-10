@@ -27,6 +27,27 @@ else:
     conf["idcheck_token"]='tok2'
 
 
+p=os.environ.get('SMTP_USERNAME_FILE', None)
+if os.path.exists(p):
+    with open(p) as f:
+        smtp_conf["username"]=f.readline().rstrip()
+else:
+    smtp_conf["username"]=None
+
+p=os.environ.get('SMTP_PASSWORD_FILE', None)
+if os.path.exists(p):
+    with open(p) as f:
+        smtp_conf["password"]=f.readline().rstrip()
+else:
+    smtp_conf["password"]=None
+
+smtp_conf["server"]=os.environ.get('SMTP_SERVER',None)
+smtp_conf["port"]=os.environ.get('SMTP_PORT',None)
+smtp_conf["email_from"]=os.environ.get('SMTP_EMAIL_FROM',None)
+smtp_conf["name_from"]=os.environ.get('SMTP_NAME_FROM',None)
+
+smtp_conf["complete_template"]=string.Template("Dear ${TO_NAME},\n This email is to confirm that you have passed our identity check. Please consult your wallet for confirmation of address whitelisting.\n Kind Regards,\n ${FROM_NAME}")
+
 conf["port"]=os.environ.get('IDCHECK_WEBHOOK_PORT', None)
 conf["log"]=os.environ.get('IDCHECK_LOG', '/usr/local/var/log/cb_idcheck.log')
 conf["host"]=os.environ.get('IDCHECK_HOST', 'localhost')
@@ -40,8 +61,8 @@ wh=webhook.webhook(token=conf["token"],
                    id_api=conf["id_api"],
                    idcheck_token=conf["idcheck_token"],
                    whitelisted_dir=conf["whitelisted_dir"],
-                   consider_dir=conf["consider_dir"])
-
+                   consider_dir=conf["consider_dir"],
+                   smtp_conf)
 wh.init()
 
 @app.route("/")
