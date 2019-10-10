@@ -41,12 +41,24 @@ if os.path.exists(p):
 else:
     smtp_conf["password"]=None
 
+p=os.environ.get('EMAIL_TEMPLATE_FILE', None)
+if os.path.exists(p):
+    with open(p) as f:
+        smtp_conf["complete_template"]=Template(f.read())
+else:
+    smtp_conf["compete_template"]=None
+
+p=os.environ.get('EMAIL_FAIL_TEMPLATE_FILE', None)
+if os.path.exists(p):
+    with open(p) as f:
+        smtp_conf["fail_template"]=Template(f.read())
+else:
+    smtp_conf["fail_template"]=None
+
 smtp_conf["server"]=os.environ.get('SMTP_SERVER',None)
 smtp_conf["port"]=os.environ.get('SMTP_PORT',None)
 smtp_conf["email_from"]=os.environ.get('SMTP_EMAIL_FROM',None)
-smtp_conf["name_from"]=os.environ.get('SMTP_NAME_FROM',None)
-
-smtp_conf["complete_template"]=string.Template("Dear ${TO_NAME},\n This email is to confirm that you have passed our identity check. Please consult your wallet for confirmation of address whitelisting.\n Kind Regards,\n ${FROM_NAME}")
+smtp_conf["email_subject"]=os.environ.get('SMTP_EMAIL_SUBJECT',None)
 
 conf["port"]=os.environ.get('IDCHECK_WEBHOOK_PORT', None)
 conf["log"]=os.environ.get('IDCHECK_LOG', '/usr/local/var/log/cb_idcheck.log')
